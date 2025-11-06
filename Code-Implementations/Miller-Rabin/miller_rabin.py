@@ -36,6 +36,7 @@ def miller_rabin_test(d: int, n: int) -> bool:
 
     return False
 
+
 def is_prime(n: int, k: int = 40) -> bool:
     """
     Determine if a number is prime using the Miller-Rabin primality test.
