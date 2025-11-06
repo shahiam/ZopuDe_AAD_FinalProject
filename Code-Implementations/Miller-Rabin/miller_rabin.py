@@ -37,7 +37,7 @@ def miller_rabin_test(d: int, n: int) -> bool:
     return False
 
 
-def is_prime(n: int, k: int = 40) -> bool:
+def is_prime(n: int, k: int = 10) -> bool:
     """
     Determine if a number is prime using the Miller-Rabin primality test.
 
@@ -47,7 +47,7 @@ def is_prime(n: int, k: int = 40) -> bool:
 
     Args:
         n (int): The integer to test.
-        k (int): Number of accuracy iterations. Default is 40.
+        k (int): Number of accuracy iterations. Default is 10.
 
     Returns:
         bool: True if n is probably prime, False otherwise.
