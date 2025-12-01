@@ -1,11 +1,15 @@
 import random
-import time
 import sys
 
 sys.setrecursionlimit(10000)
 
-
 def randomized_quicksort(arr):
+    """
+    randomized quicksort chooses random pivot,
+    splits into left (< pivot),
+    middle (== pivot), right (> pivot),
+    recursively sorts left and right lists.
+    """
     if len(arr) <= 1:
         return arr
 
