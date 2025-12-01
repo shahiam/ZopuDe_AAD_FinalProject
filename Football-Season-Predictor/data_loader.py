@@ -5,16 +5,12 @@ import os
 
 @st.cache_data
 def load_local_data():
-    """
-    Loads all league match data from the local 'data/' directory structure.
-    Expected CSV format: Date,Home Team,Away Team,Home Goals,Away Goals
-    Keeps fixtures with empty goal columns as NaN for simulation.
-    """
+    #Loads all league match data from the local 'data/'
     base_path = "data"
     all_files = glob.glob(os.path.join(base_path, "*", "*.csv"))
 
     if not all_files:
-        st.error(f"No CSV files found under '{base_path}/'.")
+        st.error(f"Data files not found")
         return pd.DataFrame()
 
     all_matches = []
@@ -34,26 +30,25 @@ def load_local_data():
                 "Away Goals": "AwayGoals",
             }, inplace=True)
 
-            # Ensure columns exist
             if not {"HomeTeam", "AwayTeam", "HomeGoals", "AwayGoals"}.issubset(df.columns):
                 st.warning(f"File {file_path} missing required columns. Skipped.")
                 continue
 
-            # Convert numeric columns but allow NaN
+            #converting numeric columns but allow NaN
             df["HomeGoals"] = pd.to_numeric(df["HomeGoals"], errors="coerce")
             df["AwayGoals"] = pd.to_numeric(df["AwayGoals"], errors="coerce")
 
-            # Parse date if present
+            #parsing date
             if "Date" in df.columns:
                 df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
             all_matches.append(df)
 
         except Exception as e:
-            st.warning(f"Failed to read {file_path}: {e}")
+            st.warning(f"failed to read file: {e}")
 
     if not all_matches:
-        st.error("No valid match files were loaded.")
+        st.error("match files were not loaded")
         return pd.DataFrame()
 
     master_df = pd.concat(all_matches, ignore_index=True)

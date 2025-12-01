@@ -5,7 +5,7 @@ from simulation import run_monte_carlo_simulation
 
 
 
-#streamlit Configuration
+#streamlit configuration
 st.set_page_config(page_title="Football Season Simulator", layout="wide")
 st.title("Football Season Simulator — 2024-25")
 
