@@ -53,7 +53,7 @@ if st.button("Run Monte Carlo Simulation"):
     with st.spinner(f"Running {num_simulations:,} simulations..."):
         predicted_table = montesimulation(historical_df, fixtures_df, num_simulations)
 
-    st.toast("✅ Simulation complete!")
+    st.toast("Simulation complete!")
     st.dataframe(predicted_table, use_container_width=True, height=600)
     st.caption("Modify `simulation.py` to adjust the model or add features like promotion/relegation.")
 else:

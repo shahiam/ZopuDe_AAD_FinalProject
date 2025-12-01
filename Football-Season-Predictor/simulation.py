@@ -109,4 +109,5 @@ def montesimulation(historical_df, fixtures_df, num_simulations):
 
     df = pd.DataFrame(table).sort_values(by="Avg Points", ascending=False)
     df.reset_index(drop=True, inplace=True)
+    df.index = df.index + 1
     return df
