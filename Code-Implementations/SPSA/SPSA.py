@@ -7,6 +7,16 @@ np.random.seed(42)
 
 # Polynomial function - calculates polynomial value for given coefficients and x
 def polynomial(a, x):
+    """
+    Evaluates a polynomial given coefficients a and input x
+    Args:
+        a (np.ndarray): Polynomial coefficients [a0, a1, a2, ..., an] 
+                        where polynomial = a0 + a1*x + a2*x^2 + ... + an*x^n
+        x (np.ndarray or float): Input values at which to evaluate the polynomial
+    Returns:
+        np.ndarray: Polynomial values evaluated at x
+
+    """
     N = len(a)
     S = 0
     for k in range(N):
@@ -15,7 +25,16 @@ def polynomial(a, x):
 
 # Loss function - mean squared error with noise between predicted and real values
 def Loss(parameters, X, Y):
-    # Predictions of our model
+    """
+    Computes mean squared error (MSE) loss between polynomial predictions and target values
+    Args:
+        parameters (np.ndarray): Polynomial coefficients to evaluate
+        X (np.ndarray): Input features (x-values)
+        Y (np.ndarray): Target values (noisy observations)
+        
+    Returns:
+        float: Noisy MSE loss value
+    """
     Y_pred = polynomial(parameters, X)
 
     # mse (mean square error)
@@ -27,7 +46,19 @@ def Loss(parameters, X, Y):
 
 # Gradient approximation using simultaneous perturbation
 def grad(L, w, ck):
-    # number of parameters
+   
+    """
+    Approximates the gradient of loss function L using Simultaneous Perturbation method.
+    
+    Args:
+        L (function): Loss function L(w, X, Y) that takes parameter vector w
+        w (np.ndarray): Current parameter values
+        ck (float): Perturbation magnitude for this iteration
+        
+    Returns:
+        np.ndarray: Stochastic gradient approximation
+    """
+
     p = len(w)
 
     # bernoulli-like distribution: vector of +1 or -1
@@ -43,6 +74,18 @@ def grad(L, w, ck):
 
 # Initialize hyperparameters for SPSA
 def initialize_hyperparameters(alpha, lossFunction, w0, N_iterations):
+    """
+    Automatically tunes SPSA hyperparameters a, A, c based on initial gradient magnitude.
+    
+    Args:
+        alpha (float): Learning rate decay exponent (typically 0.602)
+        lossFunction (function): Loss function for gradient estimation
+        w0 (np.ndarray): initial parameter guess
+        N_iterations (int): number of optimization iterations
+        
+    Returns:
+        tuple: (a, A, c) - tuned hyperparameters
+    """
     c = 1e-2  # a small number
 
     # A is <= 10% of the number of iterations
@@ -59,6 +102,22 @@ def initialize_hyperparameters(alpha, lossFunction, w0, N_iterations):
 
 # Main SPSA optimization algorithm
 def SPSA(LossFunction, parameters, alpha=0.602, gamma=0.101, N_iterations=int(1e5)):
+    """
+    Simultaneous Perturbation Stochastic Approximation (SPSA) optimization algorithm.
+    
+    Minimizes a stochastic, possibly non-differentiable loss function using only
+    2 function evaluations per iteration regardless of parameter dimensionality.
+    
+    Args:
+        LossFunction (function): Objective function L(w) to minimize
+        parameters (np.ndarray): Initial parameter values w_0
+        alpha (float): Learning rate decay exponent (default: 0.602)
+        gamma (float): Perturbation magnitude decay exponent (default: 0.101)
+        N_iterations (int): Maximum number of iterations (default: 100,000)
+        
+    Returns:
+        np.ndarray: Optimized parameter values
+    """
     # model's parameters
     w = parameters
 
@@ -77,7 +136,6 @@ def SPSA(LossFunction, parameters, alpha=0.602, gamma=0.101, N_iterations=int(1e
 
     return w
 
-# Example usage of the SPSA algorithm
 
 # Generate example data points (polynomial with noise)
 X = np.linspace(0, 10, 100)
