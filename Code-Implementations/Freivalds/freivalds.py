@@ -2,7 +2,26 @@ import numpy as np
 import time
 
 def deterministic_verification(A, B, C):
-    # C is verified by multiplying A and B in the standard way.
+    """
+    This function checks if the product of matrices A and B equals C using the standard deterministic multiplication.
+
+    It performs the full matrix multiplication A * B and compares the result to C element-wise. It is computationally expensive with a complexity of O(n^3).
+
+    Parameters:
+
+    A : numpy.ndarray
+        The first matrix (n x n).
+    B : numpy.ndarray
+        The second matrix (n x n).
+    C : numpy.ndarray
+        The result matrix to verify (n x n).
+
+    Returns:
+    bool - 
+        True if A * B is approximately equal to C, False otherwise.
+
+   
+    """
     calc_matrix = np.dot(A, B)
     difference = calc_matrix - C
     # checking if the difference matrix is all zeros with an absolute tolerance (atol)
@@ -13,6 +32,29 @@ def deterministic_verification(A, B, C):
     # atol, absolute tolerance is set to recognise zero as any number smaller than 1e-7, allowing the algorithm to ignore tiny, unavoidable computer rounding errors but still detecting the main mismatch error, if any
 
 def freivalds_algo(A, B, C, k=10):
+    """
+    Verifies if A * B == C using Freivalds' Algorithm (Probabilistic).
+
+    Instead of computing A * B (which is O(n^3)), this algorithm checks if A * (B * r) == C * r for a random vector r. This reduces complexity to O(k * n^2).
+
+    
+
+    Parameters:
+
+    A : numpy.ndarray
+        The first matrix (n x n).
+    B : numpy.ndarray
+        The second matrix (n x n).
+    C : numpy.ndarray
+        The result matrix to verify (n x n).
+    k : int
+        The number of iterations to run (default is 10). A higher k reduces the probability of a false positive (error probability is 2^-k).
+
+    Returns:
+    bool -
+        True if the verification passes for all k iterations, False otherwise.
+
+    """
     n = A.shape[0]
     # checking that all matrix dimensions are valid, if not - it gives False
     if A.shape[1] != B.shape[0] or B.shape[1] != C.shape[1] or A.shape[0] != C.shape[0]:
