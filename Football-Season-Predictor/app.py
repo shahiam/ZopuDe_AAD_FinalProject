@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from data_loader import load_local_data
-from simulation import run_monte_carlo_simulation
+from simulation import montesimulation
 
 
 
@@ -51,7 +51,7 @@ st.header(f"Predicting {league_map.get(selected_league, selected_league)} {lates
 
 if st.button("Run Monte Carlo Simulation"):
     with st.spinner(f"Running {num_simulations:,} simulations..."):
-        predicted_table = run_monte_carlo_simulation(historical_df, fixtures_df, num_simulations)
+        predicted_table = montesimulation(historical_df, fixtures_df, num_simulations)
 
     st.toast("✅ Simulation complete!")
     st.dataframe(predicted_table, use_container_width=True, height=600)

@@ -2,9 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-# =====================
-# Core strength model
-# =====================
+#core strength model
 def estimate_strengths(historical_matches):
     hist = historical_matches.dropna(subset=["HomeGoals", "AwayGoals"]).copy()
     total_matches = len(hist)
@@ -40,9 +38,7 @@ def estimate_strengths(historical_matches):
     return team_stats[["attack", "defense"]].to_dict(orient="index"), league_avg_goals, home_adv
 
 
-# =====================
-# Match simulation
-# =====================
+#simulating a match
 def match_lambdas(home, away, strengths, league_avg_goals, home_adv):
     a_h = strengths.get(home, {"attack": 1.0})["attack"]
     d_h = strengths.get(home, {"defense": 1.0})["defense"]
@@ -84,10 +80,7 @@ def simulate_season(fixtures_df, strengths, league_avg_goals, home_adv, rng):
     return pts, gf, ga
 
 
-# =====================
-# Monte Carlo loop
-# =====================
-def run_monte_carlo_simulation(historical_df, fixtures_df, num_simulations):
+def montesimulation(historical_df, fixtures_df, num_simulations):
     strengths, league_avg_goals, home_adv = estimate_strengths(historical_df)
     teams = sorted(set(fixtures_df["HomeTeam"]) | set(fixtures_df["AwayTeam"]))
 
