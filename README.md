@@ -16,4 +16,8 @@ Randomised Routing:
   Other core libraries: Numpy, .matplotlib
 Football League Simulator (Monte Carlo):
   from simulation import montesimulations
+  glob used for file-based searching
+  streamlit is python framework for building interactive web apps
+  make sure all three files - app.py, data_loader.py and simulation.py are in the same directory before running
+
 
