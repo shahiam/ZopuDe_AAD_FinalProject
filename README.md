@@ -25,3 +25,4 @@
 - `glob` used for file-based searching
 - `streamlit` is python framework for building interactive web apps
 - make sure all three files - `app.py`, `data_loader.py` and `simulation.py` are in the same directory before running
+- To run: `streamlit run app.py` from inside the Football-Season-Predictor directory
