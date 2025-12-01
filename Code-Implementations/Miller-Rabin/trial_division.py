@@ -1,6 +1,6 @@
-import math
+from math import isqrt
 
-def is_prime(n: int) -> bool:
+def is_prime(n):
     """
     Check if a number is prime using the trial division method.
 
@@ -19,7 +19,7 @@ def is_prime(n: int) -> bool:
         return False
     
     # Only check divisibility up to sqrt(n)
-    root_n = math.isqrt(n)
+    root_n = isqrt(n)
 
     # Test only odd divisors since even numbers are already excluded
     for i in range(3, root_n + 1, 2):
