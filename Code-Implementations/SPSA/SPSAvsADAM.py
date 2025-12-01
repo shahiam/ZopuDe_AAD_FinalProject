@@ -102,6 +102,9 @@ X = np.linspace(0, 2 * np.pi, 100)
 
 #we calculate for different values of noise_std for evaluation
 Y = generate_data(*true_params, X, noise_std= 3.5)
+"""
+Generates noisy function for both algorithms to act on.
+"""
 
 init_params = np.array([1.3, 1.7, -0.8, 0.6])
 
